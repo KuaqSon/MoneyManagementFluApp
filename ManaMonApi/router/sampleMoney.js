@@ -21,7 +21,7 @@ router.post('/add-update-money', function (req, res) {
   var notes = req.body.notes;
   console.log(" body ", req.body);
 
-  if(!id) {
+  if (!id) {
     const sampleMon = new SampleMoney({
       money: money,
       notes: notes
@@ -29,13 +29,13 @@ router.post('/add-update-money', function (req, res) {
 
     sampleMon.save(function (err) {
       if (err) {
-          console.log(err);
-          res.json({ msg: "err" });
+        console.log(err);
+        res.json({ msg: "err" });
       } else {
-          console.log("add new success");
-          SampleMoney.find(function (err, SampleMoney) {
-              res.json({ SampleMoney: SampleMoney });
-          })
+        console.log("add new success");
+        SampleMoney.find(function (err, SampleMoney) {
+          res.json({ SampleMoney: SampleMoney });
+        })
       }
     })
   } else {
@@ -63,9 +63,49 @@ router.post('/add-update-money', function (req, res) {
             msg: null
           });
         })
+      } else {
+        return res.json({
+          resp: null,
+          isError: true,
+          msg: `Update fail, there are have no money notes at ${id}`
+        });
       }
     })
   }
 });
+
+router.post('/delete-money', function (req, res) {
+  var id = req.body.id;
+  SampleMoney.findById(id, function (err, sampleMoney) {
+    if (err) {
+      return res.json({
+        resp: null,
+        isError: true,
+        msg: null
+      });
+    }
+    if (sampleMoney) {
+      sampleMoney.delete(function (err) {
+        if (err)
+          return res.json({
+            resp: null,
+            isError: true,
+            msg: `delete money notes at ${id} fail`
+          });
+        return res.json({
+          resp: null,
+          isError: false,
+          msg: `delete money notes at ${id} successful`
+        });
+      })
+    } else {
+      return res.json({
+        resp: null,
+        isError: true,
+        msg: `delete fail, there are have no money notes at ${id}`
+      });
+    }
+  })
+})
 
 module.exports = router; 
