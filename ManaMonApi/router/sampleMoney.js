@@ -1,5 +1,5 @@
 var express = require('express');
-var sampleMoney = require('../model/SampleMoney');
+var SampleMoney = require('../model/SampleMoney');
 var router = express.Router();
 // var bcrypt = require('bcrypt');
 // var passport = require('passport');
@@ -15,5 +15,28 @@ router.get('/sample-get-v1', function (req, res) {
 
 });
 
+router.post('/add-money', function (req, res) {
+  var money = req.body.money;
+  // var accountNumber = req.body.accountNumber;
+  var notes = req.body.notes;
+  console.log(" body ", req.body);
+
+  const sampleMon = new SampleMoney({
+    money: money,
+    notes: notes
+  });
+
+  sampleMon.save(function (err) {
+    if (err) {
+        console.log(err);
+        res.json({ msg: "err" });
+    } else {
+        console.log("success");
+        SampleMoney.find(function (err, SampleMoney) {
+            res.json({ SampleMoney: SampleMoney });
+        })
+    }
+  })
+});
 
 module.exports = router; 

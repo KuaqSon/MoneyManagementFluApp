@@ -6,7 +6,7 @@ money: {
     type: Number,
     required: false
 },
-note: {
+notes: {
     type: String,
     required: false
 }
