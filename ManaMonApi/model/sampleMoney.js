@@ -1,16 +1,16 @@
-import { Schema, model } from 'mongoose';
+var mongoose = require('mongoose');
 
 // SampleMoney Schema
-var SampleMoneySchema = Schema({
+var SampleMoneySchema = mongoose.Schema({
 money: {
-    type: number,
+    type: Number,
     required: false
 },
 note: {
-    type: string,
+    type: String,
     required: false
 }
 
 });
 
-module.exports = model('SampleMoney', SampleMoneySchema);
+var SampleMoney = module.exports = mongoose.model('SampleMoney', SampleMoneySchema);

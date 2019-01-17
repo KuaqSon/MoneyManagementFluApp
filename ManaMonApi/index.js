@@ -7,7 +7,7 @@ var configDb = require('./config/database');
 
 
 
-mongoose.connect(configDb.database);
+mongoose.connect(configDb.database, { useNewUrlParser: true });
 
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection: error!'));
@@ -25,7 +25,7 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 
 
-var sampleMoney = require('./router/controlUser');
+var sampleMoney = require('./router/sampleMoney');
 
 
 app.use('/sample-money', sampleMoney);
