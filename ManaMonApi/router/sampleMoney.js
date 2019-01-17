@@ -15,28 +15,58 @@ router.get('/sample-get-v1', function (req, res) {
 
 });
 
-router.post('/add-money', function (req, res) {
+router.post('/add-update-money', function (req, res) {
+  var id = req.body.id;
   var money = req.body.money;
   // var accountNumber = req.body.accountNumber;
   var notes = req.body.notes;
   console.log(" body ", req.body);
 
-  const sampleMon = new SampleMoney({
-    money: money,
-    notes: notes
-  });
+  if(!id) {
+    const sampleMon = new SampleMoney({
+      money: money,
+      notes: notes
+    });
 
-  sampleMon.save(function (err) {
-    if (err) {
-        console.log(err);
-        res.json({ msg: "err" });
-    } else {
-        console.log("success");
-        SampleMoney.find(function (err, SampleMoney) {
-            res.json({ SampleMoney: SampleMoney });
+    sampleMon.save(function (err) {
+      if (err) {
+          console.log(err);
+          res.json({ msg: "err" });
+      } else {
+          console.log("add new success");
+          SampleMoney.find(function (err, SampleMoney) {
+              res.json({ SampleMoney: SampleMoney });
+          })
+      }
+    })
+  } else {
+    SampleMoney.findById(id, function (err, sampleMoney) {
+      if (err) {
+        return res.json({
+          resp: null,
+          isError: true,
+          msg: null
+        });
+      }
+      if (sampleMoney) {
+        sampleMoney.money = money;
+        sampleMoney.notes = notes;
+        sampleMoney.save(function (err) {
+          if (err)
+            return res.json({
+              resp: null,
+              isError: true,
+              msg: null
+            });
+          return res.json({
+            resp: { sampleMoney: sampleMoney },
+            isError: false,
+            msg: null
+          });
         })
-    }
-  })
+      }
+    })
+  }
 });
 
 module.exports = router; 
