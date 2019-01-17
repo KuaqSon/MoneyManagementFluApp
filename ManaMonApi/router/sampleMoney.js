@@ -8,11 +8,10 @@ var router = express.Router();
 // const moment = require('moment')
 // const User = require('../model/user');
 
-router.get('/sample-get-v1', function (req, res) {
-  res.json( {
-    msg: 'test'
+router.get('/moneys', function (req, res) {
+  SampleMoney.find(function (err, sampleMoney) {
+    res.json({ sampleMoney: sampleMoney });
   })
-
 });
 
 router.post('/add-update-money', function (req, res) {
