@@ -13,4 +13,5 @@ notes: {
 
 });
 
+
 var SampleMoney = module.exports = mongoose.model('SampleMoney', SampleMoneySchema);

@@ -1,5 +1,5 @@
 var express = require('express');
-var SampleMoney = require('../model/SampleMoney');
+var SampleMoney = require('../model/SampleMoneyTemp');
 var router = express.Router();
 // var bcrypt = require('bcrypt');
 // var passport = require('passport');
