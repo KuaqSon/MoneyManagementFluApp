@@ -26,9 +26,11 @@ app.use(bodyParser.json());
 
 
 var sampleMoney = require('./router/sampleMoney');
+var instaDownloader = require('./router/instaDownloader');
 
 
 app.use('/sample-money', sampleMoney);
+app.use('/insta', instaDownloader);
 
 
 
