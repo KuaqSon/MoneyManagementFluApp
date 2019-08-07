@@ -33,7 +33,8 @@ router.post("/image-urls", function(req, res) {
             title,
             url,
             file,
-            src_url: video_link ? video_link : image_link
+            src_url: video_link ? video_link : image_link,
+            thumbnail_url: image_link
           },
           isError: false,
           message: "Success!"
